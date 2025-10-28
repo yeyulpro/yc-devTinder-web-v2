@@ -1,10 +1,9 @@
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
+import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useForm, Controller } from "react-hook-form";
@@ -14,7 +13,6 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useSignUpMutation } from "../apis/userApi";
 import { useState } from "react";
-import FormHelperText from "@mui/material/FormHelperText";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
@@ -156,7 +154,7 @@ export default function RegisterPage() {
             variant="contained"
             sx={{ mt: 1, marginY: 2, fontWeight: "bold" }}
           >
-            Login
+            Sign Up
           </Button>
 
           <Typography
@@ -165,14 +163,15 @@ export default function RegisterPage() {
             sx={{ color: "#444444", fontWeight: "bold" }}
           >
             Are you a member?{" "}
-            <Link
-              href="/login"
-              variant="body2"
+            <Typography
+              component={Link}
+              to='/login'              
               underline="hover"
-              sx={{ borderColor: "#ff6b81", fontWeight: "bold" }}
+              
+              sx={{ borderColor: "#ff6b81", fontWeight: "bold" ,textDecoration:'none'}}
             >
               Log In
-            </Link>
+            </Typography>
           </Typography>
         </Box>
       </Box>

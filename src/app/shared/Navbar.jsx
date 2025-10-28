@@ -55,7 +55,7 @@ export default function Navbar() {
             await logout();
             dispatch(clearUser());
             toast("logout success!");
-            navigate("/feed");
+            navigate("/");
         } catch (error) {
             console.log(error.message);
         }
@@ -90,7 +90,7 @@ export default function Navbar() {
                         variant="h6"
                         noWrap
                         component={Link}
-                        to={"/main"}
+                        to={"/"}
                         sx={{
                             mr: 2,
                             display: { xs: "none", md: "flex" },

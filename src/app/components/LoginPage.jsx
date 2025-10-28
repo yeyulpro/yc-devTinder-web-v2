@@ -1,7 +1,7 @@
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
+import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
@@ -14,13 +14,12 @@ import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../apis/userApi";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { setUser } from "../slices/accountSlice";
+
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -40,7 +39,7 @@ export default function LoginPage() {
       const loginUser = await login(data).unwrap();
       dispatch(setUser(loginUser));
       toast("login succeeded!");
-      navigate("/feed");
+      navigate("/feeds");
     } catch (error) {
       if (error.response) {
         toast("Login failed: " + error.response.data.message);
@@ -53,13 +52,6 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  const handleMouseUpPassword = (event) => {
-    event.preventDefault();
-  };
 
   return (
     <Paper
@@ -86,7 +78,7 @@ export default function LoginPage() {
           Login to your account
         </Typography>
 
-        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3, paddingX: 4 }}>
           <TextField
             margin="normal"
             required
@@ -98,36 +90,33 @@ export default function LoginPage() {
             autoFocus
             sx={{ mt: 0 }}
             {...register("emailId")}
+            error={!!errors.emailId}
+            helperText={errors.emailId?.message}
           />
-          <Typography sx={{ color: "#ff0000" }}>
-            {errors.emailId?.message}
-          </Typography>
 
-          <InputLabel htmlFor="outlined-adornment-password">
-            Password
-          </InputLabel>
-          <OutlinedInput
+
+          <TextField
             fullWidth
-            id="outlined-adornment-password"
-            {...register("password")}
-            value="Passw0rd!"
-            type={showPassword ? "text" : "password"}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label={
-                    showPassword ? "hide the password" : "display the password"
-                  }
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  onMouseUp={handleMouseUpPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
+            id="password"
             label="Password"
+            type={showPassword ? "text" : "password"}
+            {...register("password")}
+            error={!!errors.password}
+            helperText={errors.password?.message}
+            margin="normal"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    onMouseDown={(e) => e.preventDefault()}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
 
           <Button
@@ -145,14 +134,14 @@ export default function LoginPage() {
             sx={{ color: "#444444", fontWeight: "bold" }}
           >
             Not a member?{" "}
-            <Link
-              href="/register"
-              variant="body2"
+            <Typography
+              component={Link}
+              to='/register'
               underline="hover"
-              sx={{ borderColor: "#ff6b81", fontWeight: "bold" }}
+              sx={{ borderColor: "#ff6b81", fontWeight: "bold", textDecoration: 'none' }}
             >
               Sign Up
-            </Link>
+            </Typography>
           </Typography>
         </Box>
       </Box>

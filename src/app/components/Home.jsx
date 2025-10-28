@@ -98,9 +98,12 @@ export default function Home() {
                                     color: "red",
                                     fontWeight: "bold",
                                     alignItems: "center",
-                                
+                                 
                                     fontFamily:'cursive',
-                                     transform: "rotate(-20deg)",
+                                    transform: "rotate(-20deg)",
+                                      "&:hover": {
+                                    transform: "rotate(10deg) scale(1.03)",
+                                },
                                 }}
                             >
                                 Tinder

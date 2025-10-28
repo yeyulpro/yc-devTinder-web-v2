@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import { Outlet } from "react-router";
 import { useLocation } from "react-router";
 import { useProfileQuery } from "../apis/userApi";
+import Typography from "@mui/material/Typography";
 
 export default function RequireAuth() {
   const { data: user, isLoading } = useProfileQuery();
