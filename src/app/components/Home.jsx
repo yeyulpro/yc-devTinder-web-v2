@@ -2,8 +2,11 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+
+    const navigate = useNavigate();
     return (
         <Box
             sx={{
@@ -110,7 +113,7 @@ export default function Home() {
                             you need are some good pics and a solid bio to stand out.
                         </Typography>
 
-                        <Button variant="contained" sx={{ fontSize: "2rem", borderRadius:'50%', width:200 ,alignSelf:'center' }} onClick={()=>{}}>Join Now</Button>
+                        <Button variant="contained" sx={{ fontSize: "2rem", borderRadius:'50%', width:200 ,alignSelf:'center' }} onClick={()=>navigate('/register')}>Join Now</Button>
                     </Box>
                     <Box sx={{ mt: 19 }}>
                         <Box

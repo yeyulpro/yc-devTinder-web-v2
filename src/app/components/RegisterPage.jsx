@@ -14,8 +14,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useSignUpMutation } from "../apis/userApi";
 import { useState } from "react";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
+import FormHelperText from "@mui/material/FormHelperText";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
@@ -50,18 +49,10 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  const handleMouseUpPassword = (event) => {
-    event.preventDefault();
-  };
-
   return (
     <Paper
       elevation={9}
-      sx={{ bgcolor: "#f4acb7", mt: 0, borderRadius: 3, width: 550, pb: 5 }}
+      sx={{ bgcolor: "#e6e6e9", mt: 0, borderRadius: 3, width: 550, pb: 5 }}
     >
       <Box
         sx={{
@@ -78,12 +69,16 @@ export default function RegisterPage() {
         <Typography
           component="h1"
           variant="h5"
-          sx={{ color: "#444444", fontWeight: "bold" }}
+          sx={{
+            color: "#444444",
+            fontWeight: "bold",
+            textTransform: "uppercase",
+          }}
         >
-          Login to your account
+          Sign Up
         </Typography>
 
-        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3, paddingX: 4 }}>
           <TextField
             margin="normal"
             required
@@ -95,10 +90,10 @@ export default function RegisterPage() {
             autoFocus
             sx={{ mt: 0 }}
             {...register("first_name")}
+            error={!!errors.first_name}
+            helperText={errors.first_name?.message}
           />
-          <Typography sx={{ color: "#ff0000" }}>
-            {errors.first_name?.message}
-          </Typography>
+
           <TextField
             margin="normal"
             required
@@ -110,10 +105,10 @@ export default function RegisterPage() {
             autoFocus
             sx={{ mt: 0 }}
             {...register("last_name")}
+            error={!!errors.last_name}
+            helperText={errors.last_name?.message}
           />
-          <Typography sx={{ color: "#ff0000" }}>
-            {errors.last_name?.message}
-          </Typography>
+
           <TextField
             margin="normal"
             required
@@ -125,37 +120,35 @@ export default function RegisterPage() {
             autoFocus
             sx={{ mt: 0 }}
             {...register("emailId")}
+            error={!!errors.emailId}
+            helperText={errors.emailId?.message}
           />
-          <Typography sx={{ color: "#ff0000" }}>
-            {errors.emailId?.message}
-          </Typography>
 
-          <InputLabel htmlFor="outlined-adornment-password">
-            Password
-          </InputLabel>
-          <OutlinedInput
+
+          <TextField
             fullWidth
-            id="outlined-adornment-password"
-            {...register("password")}
-            value="Passw0rd!"
-            type={showPassword ? "text" : "password"}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label={
-                    showPassword ? "hide the password" : "display the password"
-                  }
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  onMouseUp={handleMouseUpPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
+            id="password"
             label="Password"
+            type={showPassword ? "text" : "password"}
+            {...register("password")}
+            error={!!errors.password}
+            helperText={errors.password?.message}
+            margin="normal"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    onMouseDown={(e) => e.preventDefault()}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
+
 
           <Button
             type="submit"

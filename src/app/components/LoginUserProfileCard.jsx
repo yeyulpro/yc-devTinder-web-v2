@@ -6,9 +6,11 @@ import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 
+
 export default function LoginUserProfileCard({ user }) {
   const { first_name, last_name, photoUrl, about, age, gender, skills } =
     user || {};
+ 
   return (
     <Card
       component={Paper}

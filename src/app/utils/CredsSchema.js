@@ -9,8 +9,8 @@ export const loginSchema = z
 
 export const registerSchema = z
   .object({
-    first_name: z.string({ message: "Enter your first name." }),
-    last_name: z.string({ message: "Enter your last name." }),
+    first_name: z.string().min(2,{message:"Your name must be more than 2 letters."}),
+    last_name: z.string().min(2,{message:"Your name must be more than 2 letters."}),
     emailId: z.string().email(),
     password: z.string().min(8),
   })
