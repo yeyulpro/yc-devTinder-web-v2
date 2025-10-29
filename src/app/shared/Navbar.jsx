@@ -19,27 +19,35 @@ import { toast } from "react-toastify";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../slices/accountSlice";
+import Groups2SharpIcon from '@mui/icons-material/Groups2Sharp';
+import ThumbUpSharpIcon from '@mui/icons-material/ThumbUpSharp';
+import FavoriteSharpIcon from '@mui/icons-material/FavoriteSharp';
+import EditNoteSharpIcon from '@mui/icons-material/EditNoteSharp';
+
 const pages = ["Security", "Guidlines", "Contact"];
 
 const settings = [
-    { name: "Feed", linkTo: "/feed", backColor: "#FFAEBC", theColor: "#2E2E2E" },
+    { name: "Feeds", linkTo: "/feeds", backColor: "#FFAEBC", theColor: "#2E2E2E", icon:<Groups2SharpIcon/> },
     {
         name: "Received Interests",
         linkTo: "/connect-request",
         backColor: "#A0E7E5",
         theColor: "#2E2E2E",
+        icon:<ThumbUpSharpIcon/>
     },
     {
         name: "Connections",
         linkTo: "/connections",
         backColor: "#B4F8C8",
         theColor: "#2E2E2E",
+         icon:<FavoriteSharpIcon/>
     },
     {
         name: "Edit My Profile",
-        linkTo: "/edit",
+        linkTo: "/profile-edit",
         backColor: "#FBE7C6",
         theColor: "#2E2E2E",
+         icon:<EditNoteSharpIcon/>
     },
 ];
 
@@ -48,7 +56,7 @@ export default function Navbar() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const loginUser = useSelector((state) => state.account.user);
-    const isLoggedIn = useSelector((state) => state.account.isLogginedIn); // after login=> isLoggedIn set to be true
+    const isLoggedIn = useSelector((state) => state.account.isLoggedIn); // after login=> isLoggedIn set to be true
 
     const logoutHandler = async () => {
         try {
@@ -241,20 +249,27 @@ export default function Navbar() {
                                     onClose={handleCloseUserMenu}
                                 >
                                     {settings.map((setting) => (
-                                        <MenuItem
-                                            key={setting.name}
-                                            onClick={handleCloseUserMenu}
-                                            sx={{
-                                                bgcolor: setting.backColor,
-                                                color: setting.theColor,
-                                                fontWeight: "bold",
-                                                "&:hover": { bgcolor: "#FFD800" },
-                                            }}
-                                            component={Link}
-                                            to={setting.linkTo}
+                                         
+                                            <MenuItem
+                                                key={setting.name}
+                                                onClick={handleCloseUserMenu}
+                                                sx={{
+                                                    bgcolor: setting.backColor,
+                                                    color: setting.theColor,
+                                                    fontWeight: "bold",
+                                                    "&:hover": { bgcolor: "#FFD800" },
+                                                }}
+                                                component={Link}
+                                                to={setting.linkTo}
                                         >
-                                            {setting.name}
-                                        </MenuItem>
+                                            <Box sx={{display:'flex', gap:2}}>
+{setting.icon}
+                                                {setting.name}
+                                            </Box>
+                                            
+                                            </MenuItem>
+                                       
+
                                     ))}
                                 </Menu>
                                 <Button onClick={logoutHandler} sx={{ color: "#FFFF" }}>

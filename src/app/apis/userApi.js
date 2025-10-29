@@ -24,7 +24,7 @@ export const accountApi = createApi({
       },
     }),
 
-      signUp: builder.mutation({
+    signUp: builder.mutation({
       query: (creds) => ({
         url: "register",
         method: "POST",
@@ -82,5 +82,5 @@ export const {
   useProfileQuery,
   useLogoutMutation,
   useEditProfileMutation,
-  useSignUpMutation
+  useSignUpMutation,
 } = accountApi;

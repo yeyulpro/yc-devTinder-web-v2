@@ -1,19 +1,18 @@
 import Box from "@mui/material/Box";
-import { Outlet } from "react-router";
-import { useLocation } from "react-router";
-import { useProfileQuery } from "../apis/userApi";
-import Typography from "@mui/material/Typography";
+import { Outlet, useLocation } from "react-router";
+import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 
 export default function RequireAuth() {
-  const { data: user, isLoading } = useProfileQuery();
+  const isLoggedIn = useSelector((state) => state.account.isLoggedIn);
   const location = useLocation();
-
-  if (isLoading) return <Typography>Loading ...</Typography>;
-  if (!user) {
+  if (!isLoggedIn) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 
   return (
+    
     <Box>
       <Outlet />
     </Box>

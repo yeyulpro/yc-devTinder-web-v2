@@ -22,7 +22,7 @@ export default function RequestReceivedPage() {
   return (
     <>
       {!requestors || requestors.length == 0 ? (
-        <NobodyPage />
+        <Nobody />
       ) : (
         <Container
           maxWidth="xl"

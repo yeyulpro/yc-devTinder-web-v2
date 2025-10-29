@@ -6,9 +6,24 @@ import Footer from "./app/shared/Footer";
 import Container from "@mui/material/Container";
 import { Outlet, useLocation } from "react-router-dom";
 import Box from "@mui/material/Box";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useProfileQuery } from "./app/apis/userApi";
+import { setUser } from "./app/slices/accountSlice";
 
 export default function App() {
+  const dispatch = useDispatch();
   const location = useLocation();
+  const { data } = useProfileQuery();
+
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setUser(data))
+    }
+
+  }, [dispatch, data])
+
   const isHome = location.pathname === "/";
   return (
     <React.Fragment>

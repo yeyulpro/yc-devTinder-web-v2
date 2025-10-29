@@ -6,7 +6,7 @@ import ConnectionsCardPage from "./ConnectionsCardPage";
 
 export default function ConnectionsPage() {
   const { data: connectedUsers, isLoading, isError } = useConnectionsQuery();
-console.log('data', connectedUsers)
+
   if (isLoading) return <Typography>Loading ...</Typography>;
 
   if (isError) return <Typography> Error ...</Typography>;

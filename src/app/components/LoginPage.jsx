@@ -35,8 +35,10 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
   });
   const onSubmit = async (data) => {
+    
     try {
       const loginUser = await login(data).unwrap();
+     
       dispatch(setUser(loginUser));
       toast("login succeeded!");
       navigate("/feeds");

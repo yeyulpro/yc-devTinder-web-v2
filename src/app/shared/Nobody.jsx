@@ -76,9 +76,9 @@ export default function NobodyPage() {
         variant="contained"
         color="primary"
         sx={{ mt: 4 }}
-        onClick={() => navigate("/feed")}
+        onClick={() => navigate("/feeds")}
       >
-        Back to Feed
+        Back to Feeds
       </Button>
     </Box>
   );
