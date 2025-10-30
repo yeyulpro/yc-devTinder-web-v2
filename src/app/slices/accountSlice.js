@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { user: null, isLoggedIn: false };
+const initialState = { user: null, isLoggedIn: false,isLoading:true };
 
 export const accountSlice = createSlice({
   name: "account",
@@ -10,6 +10,7 @@ export const accountSlice = createSlice({
     setUser(state, action) {
       state.user = action.payload;
       state.isLoggedIn = true;
+      state.isLoading = false;
     },
     clearUser() {
       return initialState;

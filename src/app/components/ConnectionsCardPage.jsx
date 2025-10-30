@@ -21,7 +21,7 @@ export default function ConnectionsCardPage({ user }) {
         border: "2px solid #FF4D6D",
       }}
     >
-      <CardActionArea component={Link} to={`/profile/${_id}`}>
+      <CardActionArea component={Link} to={`/user-profile/${_id}`}>
         <CardMedia
           component="img"
           height="290"

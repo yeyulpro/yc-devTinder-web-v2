@@ -10,7 +10,7 @@ import CardActionArea from "@mui/material/CardActionArea";
 import { Link } from "react-router-dom";
 
 export default function UserCardPage({ user, interestHandler, ignoreHandler }) {
-  const { first_name, last_name, photoUrl, about, age, gender } = user || {};
+  const {_id, first_name, last_name, photoUrl, about, age, gender } = user || {};
 
   return (
     <Card
@@ -24,7 +24,7 @@ export default function UserCardPage({ user, interestHandler, ignoreHandler }) {
         border: "2px solid #FF4D6D",
       }}
     >
-      <CardActionArea component={Link} to={`/profile/${user?._id}`}>
+      <CardActionArea component={Link} to={`/user-profile/${_id}`}>
         <CardMedia
           component="img"
           height="290"

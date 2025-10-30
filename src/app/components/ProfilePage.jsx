@@ -10,6 +10,7 @@ import {
 } from "../apis/matchingApi";
 export default function ProfilePage() {
   const { profileId } = useParams();
+  console.log("profileId type"+typeof(profileId))
   const { data: feedData, isLoading: feedLoading } = useGetAllFeedQuery();
   const { data: connectionData, isLoading: connectedLoading } =
     useConnectionsQuery();

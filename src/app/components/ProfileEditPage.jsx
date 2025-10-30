@@ -16,8 +16,9 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import LoginUserProfileCard from "./LoginUserProfileCard";
 
-export default function ProfileEditPage() {
 
+export default function ProfileEditPage() {
+ 
   const [editProfile, { data: userNewInfo }] = useEditProfileMutation();
   const navigate = useNavigate();
   const currentUserInfo = userNewInfo?.user || [];
@@ -33,8 +34,7 @@ export default function ProfileEditPage() {
 
   const onSubmit = async (data) => {
     try {
-      const returnedRes = await editProfile(data).unwrap();
-      // dispatch(editUserInfo(returnedRes.user));
+      const returnedRes = await editProfile(data).unwrap();     
       toast(returnedRes.message, { position: "top-right", closeOnClick: true });
       navigate(-1);
       console.log("here is new user info" + returnedRes.user);

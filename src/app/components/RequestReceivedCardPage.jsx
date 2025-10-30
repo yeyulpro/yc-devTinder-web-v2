@@ -30,7 +30,7 @@ export default function RequestReceivedCardPage({
       }}
     >
       {" "}
-      <CardActionArea component={Link} to={`/profile/${_id}`}>
+      <CardActionArea component={Link} to={`/user-profile/${_id}`}>
         <CardMedia
           component="img"
           height="290"

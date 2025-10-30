@@ -19,35 +19,45 @@ import { toast } from "react-toastify";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../slices/accountSlice";
-import Groups2SharpIcon from '@mui/icons-material/Groups2Sharp';
-import ThumbUpSharpIcon from '@mui/icons-material/ThumbUpSharp';
-import FavoriteSharpIcon from '@mui/icons-material/FavoriteSharp';
-import EditNoteSharpIcon from '@mui/icons-material/EditNoteSharp';
+import Groups2SharpIcon from "@mui/icons-material/Groups2Sharp";
+import ThumbUpSharpIcon from "@mui/icons-material/ThumbUpSharp";
+import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
+import EditNoteSharpIcon from "@mui/icons-material/EditNoteSharp";
 
-const pages = ["Security", "Guidlines", "Contact"];
+const pages = [
+    { name: "Security", linkTo: "/security" },
+    { name: "Guidlines", linkTo: "/guidelines" },
+    { name: "Contact", linkTo: "/contact" },
+];
 
 const settings = [
-    { name: "Feeds", linkTo: "/feeds", backColor: "#FFAEBC", theColor: "#2E2E2E", icon:<Groups2SharpIcon/> },
+    {
+        name: "Feeds",
+        linkTo: "/feeds",
+        backColor: "#FFAEBC",
+        theColor: "#2E2E2E",
+        icon: <Groups2SharpIcon />,
+    },
     {
         name: "Received Interests",
         linkTo: "/connect-request",
         backColor: "#A0E7E5",
         theColor: "#2E2E2E",
-        icon:<ThumbUpSharpIcon/>
+        icon: <ThumbUpSharpIcon />,
     },
     {
         name: "Connections",
         linkTo: "/connections",
         backColor: "#B4F8C8",
         theColor: "#2E2E2E",
-         icon:<FavoriteSharpIcon/>
+        icon: <FavoriteSharpIcon />,
     },
     {
         name: "Edit My Profile",
         linkTo: "/profile-edit",
         backColor: "#FBE7C6",
         theColor: "#2E2E2E",
-         icon:<EditNoteSharpIcon/>
+        icon: <EditNoteSharpIcon />,
     },
 ];
 
@@ -141,8 +151,15 @@ export default function Navbar() {
                             sx={{ display: { xs: "block", md: "none" } }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography sx={{ textAlign: "center" }}>{page}</Typography>
+                                <MenuItem
+                                    key={page.name}
+                                    onClick={handleCloseNavMenu}
+                                    component={Link}
+                                    to={page.linkTo}
+                                >
+                                    <Typography sx={{ textAlign: "center" }}>
+                                        {page.name}
+                                    </Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -169,8 +186,10 @@ export default function Navbar() {
                     <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                         {pages.map((page) => (
                             <Button
-                                key={page}
+                                key={page.name}
                                 onClick={handleCloseNavMenu}
+                                component={Link}
+                                to={page.linkTo}
                                 sx={{
                                     my: 2,
                                     color: "white",
@@ -179,10 +198,11 @@ export default function Navbar() {
                                     fontWeight: "bold",
                                 }}
                             >
-                                {page}
+                                {page.name}
                             </Button>
                         ))}
                     </Box>
+                    {/* ================= */}
                     <Box
                         sx={{
                             flexGrow: 0,
@@ -249,27 +269,23 @@ export default function Navbar() {
                                     onClose={handleCloseUserMenu}
                                 >
                                     {settings.map((setting) => (
-                                         
-                                            <MenuItem
-                                                key={setting.name}
-                                                onClick={handleCloseUserMenu}
-                                                sx={{
-                                                    bgcolor: setting.backColor,
-                                                    color: setting.theColor,
-                                                    fontWeight: "bold",
-                                                    "&:hover": { bgcolor: "#FFD800" },
-                                                }}
-                                                component={Link}
-                                                to={setting.linkTo}
+                                        <MenuItem
+                                            key={setting.name}
+                                            onClick={handleCloseUserMenu}
+                                            sx={{
+                                                bgcolor: setting.backColor,
+                                                color: setting.theColor,
+                                                fontWeight: "bold",
+                                                "&:hover": { bgcolor: "#FFD800" },
+                                            }}
+                                            component={Link}
+                                            to={setting.linkTo}
                                         >
-                                            <Box sx={{display:'flex', gap:2}}>
-{setting.icon}
+                                            <Box sx={{ display: "flex", gap: 2 }}>
+                                                {setting.icon}
                                                 {setting.name}
                                             </Box>
-                                            
-                                            </MenuItem>
-                                       
-
+                                        </MenuItem>
                                     ))}
                                 </Menu>
                                 <Button onClick={logoutHandler} sx={{ color: "#FFFF" }}>
