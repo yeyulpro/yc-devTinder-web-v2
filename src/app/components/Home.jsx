@@ -86,17 +86,16 @@ export default function Home() {
                             </Box>
                         </Box>
                         <Box sx={{display:'flex'}}>
-                            <Typography variant="h2" color="initial" sx={{pb:0}}>
-                                Match, Chat Meet and{" "}
-                            </Typography>
+                            <Typography variant="h2"  sx={{pb:0, color:'#2D3250', fontWeight:'bolder'}}>
+                                Match, Chat Meet and                            </Typography>
                             <Box
                                 sx={{
                                     display: "flex",
                                     justifyContent: "flex-end",
                                     fontSize: "4rem",
                                     pt: 0,
-                                    color: "red",
-                                    fontWeight: "bold",
+                                    color: "#FF073A",
+                                    fontWeight: "bolder",
                                     alignItems: "center",
                                  
                                     fontFamily:'cursive',
@@ -116,7 +115,7 @@ export default function Home() {
                             you need are some good pics and a solid bio to stand out.
                         </Typography>
 
-                        <Button variant="contained" sx={{ fontSize: "2rem", borderRadius:'50%', width:200 ,alignSelf:'center' }} onClick={()=>navigate('/register')}>Join Now</Button>
+                        <Button variant="contained" sx={{ bgcolor:'#e36414',fontSize: "1.7rem", width:200 ,alignSelf:'center', borderRadius:9 }} onClick={()=>navigate('/register')}>Join Now</Button>
                     </Box>
                     <Box sx={{ mt: 19 }}>
                         <Box

@@ -23,40 +23,42 @@ import Groups2SharpIcon from "@mui/icons-material/Groups2Sharp";
 import ThumbUpSharpIcon from "@mui/icons-material/ThumbUpSharp";
 import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import EditNoteSharpIcon from "@mui/icons-material/EditNoteSharp";
+import Paper from "@mui/material/Paper";
 
 const pages = [
     { name: "Security", linkTo: "/security" },
     { name: "Guidlines", linkTo: "/guidelines" },
-    { name: "Contact", linkTo: "/contact" },
+    { name: "Resume", linkTo: "/about" },
+
 ];
 
 const settings = [
     {
         name: "Feeds",
         linkTo: "/feeds",
-        backColor: "#FFAEBC",
-        theColor: "#2E2E2E",
+        backColor: "#3d405b",
+        theColor: "#ff9e00",
         icon: <Groups2SharpIcon />,
     },
     {
-        name: "Received Interests",
+        name: "Requests",
         linkTo: "/connect-request",
-        backColor: "#A0E7E5",
-        theColor: "#2E2E2E",
+        backColor: "#e0e1dd",
+        theColor: "#3d405b",
         icon: <ThumbUpSharpIcon />,
     },
     {
         name: "Connections",
         linkTo: "/connections",
-        backColor: "#B4F8C8",
-        theColor: "#2E2E2E",
+        backColor: "#3d405b",
+        theColor: "#ff9e00",
         icon: <FavoriteSharpIcon />,
     },
     {
         name: "Edit My Profile",
         linkTo: "/profile-edit",
-        backColor: "#FBE7C6",
-        theColor: "#2E2E2E",
+        backColor: "#e0e1dd",
+        theColor: "#3d405b",
         icon: <EditNoteSharpIcon />,
     },
 ];
@@ -98,11 +100,11 @@ export default function Navbar() {
     };
 
     return (
-        <AppBar position="static" sx={{ bgcolor: "#ff4d6d" }}>
+        <AppBar position="static" sx={{ bgcolor: "#456882" }}>
             <Container maxWidth="xl">
-                <Toolbar disableGutters>
+                <Toolbar disableGutters sx={{ height: 100 }} >
                     <FavoriteBorderSharpIcon
-                        sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+                        sx={{ display: { xs: "none", md: "flex", fontSize: "2.5rem", color: '#e63946' }, mr: 1 }}
                     />
                     <Typography
                         variant="h6"
@@ -117,7 +119,7 @@ export default function Navbar() {
                             color: "inherit",
                             textDecoration: "none",
                             fontFamily: "cursive",
-                            fontSize: "2rem",
+                            fontSize: "2.5rem",
                         }}
                     >
                         YC-Tinder
@@ -218,7 +220,7 @@ export default function Navbar() {
                                     component={Link}
                                     to="/register"
                                     sx={{
-                                        color: "rgba(255, 255, 255, 0.95)",
+                                        color: '#FFFF',
                                         fontSize: "1.2rem",
                                         fontWeight: "bold",
                                     }}
@@ -244,7 +246,7 @@ export default function Navbar() {
                                         onClick={handleOpenUserMenu}
                                         sx={{ p: 0, fontSize: "1.2rem" }}
                                     >
-                                        <Typography sx={{ color: "#FFFF", mr: 2 }}>
+                                        <Typography sx={{ color: "#FFFF", mr: 2, fontSize: '1.2rem', fontFamily: 'cursive', fontWeight: 'bold' }}>
                                             Hello,
                                             <FavoriteBorderIcon /> {loginUser.first_name}{" "}
                                             {loginUser.last_name}
@@ -276,7 +278,7 @@ export default function Navbar() {
                                                 bgcolor: setting.backColor,
                                                 color: setting.theColor,
                                                 fontWeight: "bold",
-                                                "&:hover": { bgcolor: "#FFD800" },
+                                                "&:hover": { bgcolor: "#fff0f3" },
                                             }}
                                             component={Link}
                                             to={setting.linkTo}
@@ -288,7 +290,7 @@ export default function Navbar() {
                                         </MenuItem>
                                     ))}
                                 </Menu>
-                                <Button onClick={logoutHandler} sx={{ color: "#FFFF" }}>
+                                <Button onClick={logoutHandler} sx={{ color: "#FFFF", fontSize: '1.2rem' }}>
                                     Logout
                                 </Button>
                             </>

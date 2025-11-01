@@ -35,13 +35,13 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
   });
   const onSubmit = async (data) => {
-    
+
     try {
       const loginUser = await login(data).unwrap();
-     
+
       dispatch(setUser(loginUser));
       toast("login succeeded!");
-      navigate("/feeds");
+      navigate("/profile-edit");
     } catch (error) {
       if (error.response) {
         toast("Login failed: " + error.response.data.message);
@@ -58,7 +58,7 @@ export default function LoginPage() {
   return (
     <Paper
       elevation={9}
-      sx={{ bgcolor: "#f4acb7", mt: 0, borderRadius: 3, width: 550, pb: 5 }}
+      sx={{ bgcolor: "#FFF7F7", mt: 0, borderRadius: 3, width: 500, pb: 5 }}
     >
       <Box
         sx={{
@@ -68,14 +68,14 @@ export default function LoginPage() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+        <Avatar sx={{ m: 1, bgcolor: "#FF6500" }}>
           <LockOutlinedIcon />
         </Avatar>
 
         <Typography
           component="h1"
           variant="h5"
-          sx={{ color: "#444444", fontWeight: "bold" }}
+          sx={{ color: "#1E3E62", fontWeight: "bold", }}
         >
           Login to your account
         </Typography>
@@ -125,7 +125,7 @@ export default function LoginPage() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 1, marginY: 2, fontWeight: "bold" }}
+            sx={{ mt: 1, marginY: 2, fontWeight: "bold", bgcolor: '#0B192C' }}
           >
             Login
           </Button>
@@ -140,7 +140,7 @@ export default function LoginPage() {
               component={Link}
               to='/register'
               underline="hover"
-              sx={{ borderColor: "#ff6b81", fontWeight: "bold", textDecoration: 'none' }}
+              sx={{ fontWeight: "bold", textDecoration: 'none', color: '#1E3E62' }}
             >
               Sign Up
             </Typography>

@@ -15,13 +15,15 @@ import { useEditProfileMutation } from "../apis/userApi";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import LoginUserProfileCard from "./LoginUserProfileCard";
+import { useSelector } from "react-redux";
 
 
 export default function ProfileEditPage() {
- 
-  const [editProfile, { data: userNewInfo }] = useEditProfileMutation();
+  const userNewInfo = useSelector((state) => state.account);
+  const [editProfile] = useEditProfileMutation();
   const navigate = useNavigate();
   const currentUserInfo = userNewInfo?.user || [];
+  console.log("Hey " + currentUserInfo)
   const {
     register,
     control,
@@ -34,9 +36,9 @@ export default function ProfileEditPage() {
 
   const onSubmit = async (data) => {
     try {
-      const returnedRes = await editProfile(data).unwrap();     
-      toast(returnedRes.message, { position: "top-right", closeOnClick: true });
-      navigate(-1);
+      const returnedRes = await editProfile(data).unwrap();
+      toast(returnedRes.message, { position: "top-center", closeOnClick: true });
+      navigate('/feeds');
       console.log("here is new user info" + returnedRes.user);
     } catch (error) {
       if (error) {
@@ -46,7 +48,7 @@ export default function ProfileEditPage() {
       }
     }
   };
-  console.log(userNewInfo?.user);
+
   const genders = [
     {
       value: "male",
@@ -63,13 +65,13 @@ export default function ProfileEditPage() {
   ];
 
   return (
-    <Grid container >
+    <Grid container sx={{ alignItems: 'center', mb: 6 }} >
       <Grid size={{ xs: 12, md: 8 }} >
         <Box
           component={Paper}
           elevation={11}
           sx={{
-            bgcolor: 'pink',
+            bgcolor: "#f1faee",
 
             pl: 1,
             borderRadius: 3,
@@ -77,7 +79,7 @@ export default function ProfileEditPage() {
             mt: 5,
             pb: 5,
             justifyContent: "center",
-            border: "3px solid #524949ff",
+            border: "3px solid #979dac",
           }}
         >
           <Box
@@ -93,7 +95,7 @@ export default function ProfileEditPage() {
             <Typography
               component="h1"
               variant="h5"
-              sx={{ color: "#444444", fontWeight: "bold" }}
+              sx={{ color: "#0B192C", fontWeight: "bold" }}
             >
               Edit your Profile
             </Typography>

@@ -5,75 +5,88 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
 
 
 export default function LoginUserProfileCard({ user }) {
   const { first_name, last_name, photoUrl, about, age, gender, skills } =
     user || {};
- 
+
   return (
     <Card
       component={Paper}
       elevation={11}
       sx={{
-        width: 400,
+        width: 350,
+        minHeight: 550,
         boxShadow: 1,
-        bgcolor: "#FFB6C1",
+        bgcolor: "#14213d",
         borderRadius: 3,
-        border: "2px solid #FF4D6D",
+        border: "2px solid #979dac",
+        mb: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden'
       }}
     >
+        
       <CardMedia
         component="img"
-        height="290"
         image={photoUrl}
         alt="user photo"
-        sx={{ p: 2, borderRadius: 3 }}
+         sx={{
+      height: 300, 
+      objectFit: "cover",
+    }}
       />
-      <CardContent>
-        <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
-          <Chip label="Name" />
+      <CardContent sx={{
+        flexGrow: 1,
+      }}>
+        <Box  sx={{display:'flex', gap:2, mt: 1,alignItems:'center' }}>
+          <Chip label="Name" sx={{ bgcolor: '#E67E22' ,  color: '#0B192C', fontWeight:'bolder'}} />
           <Typography
             gutterBottom
             variant="h5"
             component="div"
-            sx={{ textTransform: "capitalize" }}
+            sx={{ textTransform: "capitalize", color: "#FFFF" }}
           >
             {`${first_name} ${last_name}`}
           </Typography>
-        </Stack>
-        <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
-          <Chip label="Age" />
-          <Typography variant="body2" color="text.secondary">
+        </Box>
+        <Box sx={{display:'flex', gap:2, mt: 1,alignItems:'center' }}>
+          <Chip label="Age" sx={{ bgcolor: '#E67E22',  color: '#0B192C', fontWeight:'bolder' }} />
+          <Typography variant="body2" sx={{ color: '#FFFF', pl: 2 }} >
             {age}
           </Typography>
-        </Stack>
-        <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
-          <Chip label="Gender" />
-          <Typography variant="body2" color="text.secondary">
+        </Box>
+        <Box  sx={{display:'flex', gap:2, mt: 1,alignItems:'center'}}>
+          <Chip label="Gender" sx={{ bgcolor: '#E67E22' ,  color: '#0B192C', fontWeight:'bolder'}} />
+          <Typography variant="body2" sx={{ color: '#FFFF' }}>
             {gender}
           </Typography>
-        </Stack>
-        <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
-          <Chip label="About" />
+        </Box>
+        <Box  sx={{display:'flex', gap:2, mt: 1 ,alignItems:'center'}}>
+          <Chip label="About" sx={{ bgcolor: '#E67E22',  color: '#0B192C', fontWeight:'bolder' }} />
           <Typography
             variant="body2"
-            color="text.secondary"
+
             sx={
               {
-                //   display: "-webkit-box",
-                //   WebkitLineClamp: 2, // 최대 2줄
-                //   WebkitBoxOrient: "vertical",
-                //   overflow: "hidden",
-                //   textOverflow: "ellipsis",
+                display: "-webkit-box",
+                // WebkitLineClamp: 6, // 최대 2줄
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                color: '#FFFF',
+                pl: 1
               }
             }
           >
             {about}
           </Typography>
-        </Stack>
-        <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
-          <Chip label="Skills" />
+        </Box>
+        <Box  sx={{display:'flex', gap:2, mt: 1 ,alignItems:'center'}}>
+          <Chip label="Skills" sx={{ bgcolor: '#E67E22' ,  color: '#0B192C', fontWeight:'bolder'}} />
           <Typography
             variant="body2"
             color="text.secondary"
@@ -83,12 +96,16 @@ export default function LoginUserProfileCard({ user }) {
               WebkitBoxOrient: "vertical",
               overflow: "hidden",
               textOverflow: "ellipsis",
+              color: '#FFFF',
+              pl: 2
+
             }}
           >
             {skills}
           </Typography>
-        </Stack>
+        </Box>
       </CardContent>
+       
     </Card>
   );
 }

@@ -50,7 +50,7 @@ export default function RegisterPage() {
   return (
     <Paper
       elevation={9}
-      sx={{ bgcolor: "#e6e6e9", mt: 0, borderRadius: 3, width: 550, pb: 5 }}
+      sx={{ bgcolor: "#FFF7F7", mt: 0, borderRadius: 3, width: 550, pb: 5 }}
     >
       <Box
         sx={{
@@ -60,7 +60,7 @@ export default function RegisterPage() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+        <Avatar sx={{ m: 1, bgcolor: "#FF6500" }}>
           <LockOutlinedIcon />
         </Avatar>
 
@@ -68,7 +68,7 @@ export default function RegisterPage() {
           component="h1"
           variant="h5"
           sx={{
-            color: "#444444",
+            color: "#1E3E62",
             fontWeight: "bold",
             textTransform: "uppercase",
           }}
@@ -152,7 +152,7 @@ export default function RegisterPage() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 1, marginY: 2, fontWeight: "bold" }}
+            sx={{ mt: 1, marginY: 2, fontWeight: "bold", bgcolor: '#0B192C' }}
           >
             Sign Up
           </Button>
@@ -165,10 +165,10 @@ export default function RegisterPage() {
             Are you a member?{" "}
             <Typography
               component={Link}
-              to='/login'              
+              to='/login'
               underline="hover"
-              
-              sx={{ borderColor: "#ff6b81", fontWeight: "bold" ,textDecoration:'none'}}
+
+              sx={{ color: '#1E3E62', fontWeight: "bold", textDecoration: 'none' }}
             >
               Log In
             </Typography>

@@ -8,9 +8,10 @@ import {
   useGetAllFeedQuery,
   useConnectionRequestQuery,
 } from "../apis/matchingApi";
+
 export default function ProfilePage() {
   const { profileId } = useParams();
-  console.log("profileId type"+typeof(profileId))
+  console.log("profileId type" + typeof profileId);
   const { data: feedData, isLoading: feedLoading } = useGetAllFeedQuery();
   const { data: connectionData, isLoading: connectedLoading } =
     useConnectionsQuery();
@@ -22,9 +23,6 @@ export default function ProfilePage() {
   const interestedInMe = interestedRequest?.receivedRequests?.find(
     (user) => user?.fromUserId?._id?.toString() === profileId
   );
-  console.log("pickme", interestedInMe?.fromUserId?.first_name);
-  console.log(typeof interestedInMe);
-  console.log({ interestedInMe });
 
   const userProfile = feed || connections || interestedInMe?.fromUserId;
 
@@ -41,10 +39,11 @@ export default function ProfilePage() {
         src={photoUrl}
         alt={`${first_name} ${last_name}`}
         sx={{
-          width: 180,
-          height: 180,
-          borderRadius: 3,
-          paddingY: 2,
+          width: 200,
+          height: 200,
+          borderRadius: '50%',
+           border: '4px solid #0B192C',
+          
         }}
       />
 
@@ -58,6 +57,7 @@ export default function ProfilePage() {
               fontSize: "1.2rem",
               fontWeight: "bold",
               fontFamily: "cursive",
+              color: "#FFFF",
             }}
           >
             Name
@@ -69,13 +69,15 @@ export default function ProfilePage() {
               textTransform: "capitalize",
               paddingY: 2,
               fontFamily: "cursive",
+              color: "#FFA851",
+              fontSize: "1.2rem",
             }}
           >
             {`${first_name} ${last_name}`}
           </Typography>
         </Box>
 
-        <Divider />
+        <Divider sx={{borderColor: '#0B192C'}}/>
         <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
           <Typography
             variant="subtitle1"
@@ -85,6 +87,7 @@ export default function ProfilePage() {
               fontSize: "1.2rem",
               fontWeight: "bold",
               fontFamily: "cursive",
+              color: "#FFFF",
             }}
           >
             Age & Gender
@@ -93,13 +96,18 @@ export default function ProfilePage() {
             <Typography
               variant="subtitle1"
               color="text.secondary"
-              sx={{ paddingY: 2, fontFamily: "cursive" }}
+              sx={{
+                paddingY: 2,
+                fontFamily: "cursive",
+                color: "#FFA851",
+                fontSize: "1.2rem",
+              }}
             >
               {age}, {gender}
             </Typography>
           )}
         </Box>
-        <Divider />
+          <Divider sx={{borderColor: '#0B192C'}}/>
         <Box sx={{ display: "flex", gap: 3 }}>
           <Typography
             variant="subtitle1"
@@ -110,6 +118,7 @@ export default function ProfilePage() {
               fontWeight: "bold",
               alignSelf: "center",
               fontFamily: "cursive",
+              color: "#FFFF",
             }}
           >
             About
@@ -117,14 +126,14 @@ export default function ProfilePage() {
           {about && (
             <Typography
               variant="subtitle1"
-              sx={{ paddingY: 2, fontFamily: "cursive" }}
+              sx={{ paddingY: 2, fontFamily: "cursive", color: "#FFA851",fontSize: "1.2rem", }}
             >
               {about}
             </Typography>
           )}
         </Box>
 
-        <Divider />
+          <Divider sx={{borderColor: '#0B192C'}}/>
         <Box
           sx={{
             display: "flex",
@@ -141,11 +150,21 @@ export default function ProfilePage() {
               fontSize: "1.2rem",
               fontWeight: "bold",
               fontFamily: "cursive",
+              color: "#FFFF",
             }}
           >
             Skills{" "}
           </Typography>
-          {skills && skills.length > 0 && skills.map((skill) => skill + ",")}
+          <Typography
+            variant="subtitle2"
+            sx={{
+              fontFamily: "cursive",
+              color: "#FFA851",             
+              fontSize: "1.2rem",
+            }}
+          >
+            {skills && skills.length > 0 ? skills.join(", ") : "No skills"}
+          </Typography>
         </Box>
       </Box>
     </Box>

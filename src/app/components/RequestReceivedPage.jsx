@@ -2,9 +2,10 @@ import {
   useAcceptOrRejectRequestsMutation,
   useConnectionRequestQuery,
 } from "../apis/matchingApi";
-import Container from "@mui/material/Container";
 import RequestReceivedCardPage from "./RequestReceivedCardPage";
-import Nobody from "../shared/Nobody"
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import NoUserPage from "./NoUserPage";
 
 export default function RequestReceivedPage() {
   const { data } = useConnectionRequestQuery();
@@ -20,34 +21,36 @@ export default function RequestReceivedPage() {
   };
 
   return (
-    <>
-      {!requestors || requestors.length == 0 ? (
-        <Nobody />
-      ) : (
-        <Container
-          maxWidth="xl"
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 2,
-            justifyContent: "space-around",
-            p: 4,
-          }}
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 6,
+        mt: 0,
+        alignItems: "center",
+      }}
+    >
+      <Box>
+        <Typography
+          variant="h3"
+          sx={{ color: "#FF6500", textTransform: "uppercase" }}
         >
-          {requestors.map((user) => (
-            <RequestReceivedCardPage
-              key={user?._id}
-              user={user?.fromUserId} //info of user who is interested in me
-              acceptHandler={() => {
-                acceptHandler(user?._id);
-              }}
-              rejectHandler={() => {
-                rejectHandler(user?._id);
-              }}
-            />
-          ))}
-        </Container>
-      )}
-    </>
+          Connection Request
+        </Typography>
+      </Box>
+
+      {requestors[0] ? (
+        <RequestReceivedCardPage
+          key={requestors[0]._id}
+          user={requestors[0].fromUserId}
+          acceptHandler={() => 
+            acceptHandler(requestors[0]._id)
+          }
+          rejectHandler={() => 
+            rejectHandler(requestors[0]._id)
+          }
+        />
+      ):(<NoUserPage/>)}
+    </Box>
   );
 }
