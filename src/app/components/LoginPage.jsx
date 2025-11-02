@@ -35,10 +35,9 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
   });
   const onSubmit = async (data) => {
- console.log("login data JSON:", JSON.stringify(data, null, 2)); 
+
     try {
       const loginUser = await login(data).unwrap();
-
       dispatch(setUser(loginUser));
       toast("login succeeded!");
       navigate("/profile-edit");
