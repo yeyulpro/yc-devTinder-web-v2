@@ -1,7 +1,6 @@
 import UserCardPage from "./UserCardPage";
 import { useGetAllFeedQuery } from "../apis/matchingApi";
 import NoUserPage from "./NoUserPage";
-import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { useInterestIgnoreRequestsMutation } from "../apis/matchingApi";
 import Box from "@mui/material/Box";
@@ -17,9 +16,7 @@ export default function FeedPage() {
     return <Typography>Error loading data...</Typography>;
   }
 
-  // if (!data?.feedList || data?.feedList.length === 0) {
-  //   return <NoUserPage />;
-  // }
+  
   const interestHandler = async (id) => {
     await interestIgnoreRequests({ state: "interested", id }).unwrap();
   };
