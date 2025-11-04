@@ -40,7 +40,7 @@ export default function LoginPage() {
       const loginUser = await login(data).unwrap();
       dispatch(setUser(loginUser));
       toast("login succeeded!");
-      navigate("/profile-edit");
+      navigate("/");
     } catch (error) {
       if (error.response) {
         toast("Login failed: " + error.response.data.message);

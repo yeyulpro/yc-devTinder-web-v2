@@ -50,11 +50,16 @@ export const accountApi = createApi({
     }),
 
     editProfile: builder.mutation({
-      query: (info) => ({
-        url: "profile/edit",
-        method: "PATCH",
-        body: info,
-      }),
+      query: (info) => (
+        console.log("edited info ", info),
+
+        {
+
+          url: "profile/edit",
+          method: "PATCH",
+          // headers: { "Content-Type": "application/json" },
+          body: info,
+        }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;

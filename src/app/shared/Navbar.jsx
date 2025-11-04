@@ -18,18 +18,18 @@ import { useLogoutMutation } from "../apis/userApi";
 import { toast } from "react-toastify";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useDispatch, useSelector } from "react-redux";
-import { clearUser } from "../slices/accountSlice";
+import { clearUser, setUser } from "../slices/accountSlice";
 import Groups2SharpIcon from "@mui/icons-material/Groups2Sharp";
 import ThumbUpSharpIcon from "@mui/icons-material/ThumbUpSharp";
 import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import EditNoteSharpIcon from "@mui/icons-material/EditNoteSharp";
-import Paper from "@mui/material/Paper";
+import { useProfileQuery } from "../apis/userApi";
+import { useEffect, } from "react";
 
 const pages = [
     { name: "Security", linkTo: "/security" },
     { name: "Guidlines", linkTo: "/guidelines" },
     { name: "Resume", linkTo: "/about" },
-
 ];
 
 const settings = [
@@ -67,8 +67,23 @@ export default function Navbar() {
     const [logout] = useLogoutMutation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const { data: profileData, error } = useProfileQuery();
+
+    useEffect(() => {
+        if (!profileData) return;
+        if (profileData) {
+            dispatch(setUser(profileData));
+        } else if (error) {
+            dispatch(logout());
+        }
+    }, [profileData, error, dispatch, logout]);
+
     const loginUser = useSelector((state) => state.account.user);
-    const isLoggedIn = useSelector((state) => state.account.isLoggedIn); // after login=> isLoggedIn set to be true
+    const isLoggedIn = useSelector((state) => state.account.isLoggedIn);
+
+
+
 
     const logoutHandler = async () => {
         try {
@@ -102,9 +117,17 @@ export default function Navbar() {
     return (
         <AppBar position="static" sx={{ bgcolor: "#456882" }}>
             <Container maxWidth="xl">
-                <Toolbar disableGutters sx={{ height: 100 }} >
+                <Toolbar disableGutters sx={{ height: 100 }}>
                     <FavoriteBorderSharpIcon
-                        sx={{ display: { xs: "none", md: "flex", fontSize: "2.5rem", color: '#e63946' }, mr: 1 }}
+                        sx={{
+                            display: {
+                                xs: "none",
+                                md: "flex",
+                                fontSize: "2.5rem",
+                                color: "#e63946",
+                            },
+                            mr: 1,
+                        }}
                     />
                     <Typography
                         variant="h6"
@@ -220,7 +243,7 @@ export default function Navbar() {
                                     component={Link}
                                     to="/register"
                                     sx={{
-                                        color: '#FFFF',
+                                        color: "#FFFF",
                                         fontSize: "1.2rem",
                                         fontWeight: "bold",
                                     }}
@@ -246,7 +269,15 @@ export default function Navbar() {
                                         onClick={handleOpenUserMenu}
                                         sx={{ p: 0, fontSize: "1.2rem" }}
                                     >
-                                        <Typography sx={{ color: "#FFFF", mr: 2, fontSize: '1.2rem', fontFamily: 'cursive', fontWeight: 'bold' }}>
+                                        <Typography
+                                            sx={{
+                                                color: "#FFFF",
+                                                mr: 2,
+                                                fontSize: "1.2rem",
+                                                fontFamily: "cursive",
+                                                fontWeight: "bold",
+                                            }}
+                                        >
                                             Hello,
                                             <FavoriteBorderIcon /> {loginUser.first_name}{" "}
                                             {loginUser.last_name}
@@ -290,11 +321,18 @@ export default function Navbar() {
                                         </MenuItem>
                                     ))}
                                 </Menu>
-                                <Button onClick={logoutHandler} sx={{ color: "#FFFF", fontSize: '1.2rem' }}>
+                                <Button
+                                    onClick={logoutHandler}
+                                    sx={{ color: "#FFFF", fontSize: "1.2rem" }}
+                                >
                                     Logout
                                 </Button>
                             </>
                         )}
+
+
+
+
                     </Box>
                 </Toolbar>
             </Container>
