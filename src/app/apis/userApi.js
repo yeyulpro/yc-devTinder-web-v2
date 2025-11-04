@@ -10,7 +10,8 @@ export const accountApi = createApi({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (creds) => {
-       const { emailId, password } = creds;
+        const { emailId, password } = creds;
+        console.log(emailId, " and ", password);
         return {
           url: "login",
           method: "POST",

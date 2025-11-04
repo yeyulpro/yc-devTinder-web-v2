@@ -35,6 +35,7 @@ export default function ProfileEditPage() {
   });
 
   const onSubmit = async (data) => {
+    console.log("수정 데이터",data)
     try {
       const returnedRes = await editProfile(data).unwrap();
       toast(returnedRes.message, { position: "top-center", closeOnClick: true });
