@@ -9,11 +9,14 @@ export const accountApi = createApi({
   tagTypes: ["profile"],
   endpoints: (builder) => ({
     login: builder.mutation({
-      query: (creds) => ({
-        url: "login",
-        method: "POST",
-        body: creds,
-      }),
+      query: (creds) => {
+       const { emailId, password } = creds;
+        return {
+          url: "login",
+          method: "POST",
+          body: { emailId, password },
+        }
+      },
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
