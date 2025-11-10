@@ -14,6 +14,8 @@ import LoginPage from "../components/LoginPage";
 import RegisterPage from "../components/RegisterPage";
 import Nobody from "../shared/Nobody"
 import AboutYeyul from "../components/AboutYeyul";
+import PaymentChoice from "../components/PaymentChoice";
+import PaymentDetails from "../components/PaymentDetails";
 
 export const router = createBrowserRouter([
 
@@ -36,7 +38,8 @@ export const router = createBrowserRouter([
           { path: "connections", element: <ConnectionsPage /> },
           { path: "profile-edit", element: <ProfileEditPage /> },
           { path: "user-profile/:profileId", element: <ProfilePage /> },
-          
+          { path: "pay-choice", element: <PaymentChoice /> },          
+          { path: "details", element: <PaymentDetails /> },          
           { path: "no-user", element: <Nobody /> },
         ],
       },

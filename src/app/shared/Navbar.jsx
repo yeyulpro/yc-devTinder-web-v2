@@ -25,6 +25,7 @@ import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import EditNoteSharpIcon from "@mui/icons-material/EditNoteSharp";
 import { useProfileQuery } from "../apis/userApi";
 import { useEffect, } from "react";
+import PaymentIcon from '@mui/icons-material/Payment';
 
 const pages = [
     { name: "Security", linkTo: "/security" },
@@ -61,6 +62,14 @@ const settings = [
         theColor: "#3d405b",
         icon: <EditNoteSharpIcon />,
     },
+      {
+        name: "Payment",
+        linkTo: "/pay-choice",
+        backColor: "#3d405b",
+        theColor: "#ff9e00",
+        icon: <PaymentIcon />,
+    },
+    
 ];
 
 export default function Navbar() {
