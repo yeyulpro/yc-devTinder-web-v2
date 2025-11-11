@@ -11,7 +11,7 @@ import {
 
 export default function ProfilePage() {
   const { profileId } = useParams();
-  console.log("profileId type" + typeof profileId);
+
   const { data: feedData, isLoading: feedLoading } = useGetAllFeedQuery();
   const { data: connectionData, isLoading: connectedLoading } =
     useConnectionsQuery();
@@ -42,8 +42,8 @@ export default function ProfilePage() {
           width: 200,
           height: 200,
           borderRadius: '50%',
-           border: '4px solid #0B192C',
-          
+          border: '4px solid #0B192C',
+
         }}
       />
 
@@ -77,7 +77,7 @@ export default function ProfilePage() {
           </Typography>
         </Box>
 
-        <Divider sx={{borderColor: '#0B192C'}}/>
+        <Divider sx={{ borderColor: '#0B192C' }} />
         <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
           <Typography
             variant="subtitle1"
@@ -107,7 +107,7 @@ export default function ProfilePage() {
             </Typography>
           )}
         </Box>
-          <Divider sx={{borderColor: '#0B192C'}}/>
+        <Divider sx={{ borderColor: '#0B192C' }} />
         <Box sx={{ display: "flex", gap: 3 }}>
           <Typography
             variant="subtitle1"
@@ -126,14 +126,14 @@ export default function ProfilePage() {
           {about && (
             <Typography
               variant="subtitle1"
-              sx={{ paddingY: 2, fontFamily: "cursive", color: "#FFA851",fontSize: "1.2rem", }}
+              sx={{ paddingY: 2, fontFamily: "cursive", color: "#FFA851", fontSize: "1.2rem", }}
             >
               {about}
             </Typography>
           )}
         </Box>
 
-          <Divider sx={{borderColor: '#0B192C'}}/>
+        <Divider sx={{ borderColor: '#0B192C' }} />
         <Box
           sx={{
             display: "flex",
@@ -159,7 +159,7 @@ export default function ProfilePage() {
             variant="subtitle2"
             sx={{
               fontFamily: "cursive",
-              color: "#FFA851",             
+              color: "#FFA851",
               fontSize: "1.2rem",
             }}
           >

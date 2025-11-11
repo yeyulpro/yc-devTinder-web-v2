@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 
 export default function ConnectionsCardPage({ user }) {
+  const navigate = useNavigate();
   const { _id, first_name, last_name, photoUrl, about, age, gender } =
     user || {};
 
@@ -74,7 +75,7 @@ export default function ConnectionsCardPage({ user }) {
           top: 280,
           right: 10,
         }}
-        onClick={() => navigate("/chat")}
+        onClick={() => navigate(`/chat/${_id}`)}
       >
         <Chip
           label="Chat"

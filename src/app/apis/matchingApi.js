@@ -70,7 +70,6 @@ export const matchingApi = createApi({
 export const {
   useConnectionsQuery,
   useConnectionRequestQuery,
-
   useGetAllFeedQuery,
   useAcceptOrRejectRequestsMutation,
   useInterestIgnoreRequestsMutation,
