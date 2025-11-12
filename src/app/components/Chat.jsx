@@ -1,85 +1,115 @@
 import React, { useState, useEffect } from "react";
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
 import SendIcon from "@mui/icons-material/Send";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { createSocketConnection } from "../utils/socket";
 import { useRef } from "react";
 import { useConnectionsQuery } from "../apis/matchingApi";
-
+import { useGetAllChatQuery } from "../apis/chatApi";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Chat() {
     const { data: connections, isLoading: requestLoading } =
         useConnectionsQuery();
     const { targetUserId } = useParams();
-    const user = useSelector((state) => state.account.user)
+    const user = useSelector((state) => state.account.user);
     const userId = user?._id;
     const targetUser = connections?.find((user) => user?._id === targetUserId);
+    const { data: preMessage } = useGetAllChatQuery({ userId, targetUserId });
 
     const socketRef = useRef(null);
     const [messages, setMessages] = useState([]);
-    console.log(userId + " and " + targetUserId)
+    console.log(userId + " and " + targetUserId);
+    useEffect(() => {
+        if (!preMessage?.messages) return;
+
+        const formattedMessages = preMessage.messages.map((msg) => ({
+            id: uuidv4(),
+            sender: msg.senderId.first_name,
+            avatar: msg.senderId.photoUrl || "",
+            time: new Date(msg.createdAt).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+            }),
+            text: msg.text,
+            side: msg.senderId._id === userId ? "end" : "start",
+            status: "Delivered",
+        }));
+
+        setMessages(formattedMessages);
+    }, [preMessage, userId]);
 
     useEffect(() => {
         if (!userId || !targetUserId) return;
+
         socketRef.current = createSocketConnection();
 
         socketRef.current.on("messageReceived", ({ firstName, text }) => {
-            setMessages(prev => [
+            setMessages((prev) => [
                 ...prev,
                 {
-                    id: prev.length + 1,
+                    id: uuidv4(),
                     sender: firstName,
-                    avatar: targetUser.photoUrl,
-                    time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+                    avatar: targetUser?.photoUrl || "",
+                    time: new Date().toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    }),
                     text,
                     side: "start",
                     status: "Delivered",
-                }
+                },
             ]);
             console.log(`${firstName}'s message: ${text}`);
         });
 
-        socketRef.current.emit("joinChat", { firstName: user.first_name, userId, targetUserId });
+        socketRef.current.emit("joinChat", {
+            firstName: user.first_name,
+            userId,
+            targetUserId,
+        });
 
         return () => {
-            socketRef.current.disconnect();
-        }
-    }, [userId, targetUserId])
+            if (socketRef.current) {
+                socketRef.current.disconnect();
+            }
+        };
+    }, [userId, targetUserId]);
     const [input, setInput] = useState("");
 
     const handleSend = () => {
         if (!input.trim()) return;
         const newMessage = {
-            id: messages.length + 1,
+            id: uuidv4(),
             sender: "You",
             avatar: user.photoUrl,
-            time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+            time: new Date().toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+            }),
             text: input,
             side: "end",
             status: "Sent",
         };
-        setMessages(prev => [...prev, newMessage]);
+        setMessages((prev) => [...prev, newMessage]);
 
-        socketRef.current.emit("sendMessage", { firstName: user.first_name, userId, targetUserId, text: newMessage.text })
+        socketRef.current.emit("sendMessage", {
+            firstName: user.first_name,
+            userId,
+            targetUserId,
+            text: newMessage.text,
+        });
         setInput("");
     };
 
-
-
-
-
-
-
-
     return (
         <Paper
-
             elevation={9}
             sx={{
                 width: 450,
@@ -89,10 +119,10 @@ export default function Chat() {
                 p: 2,
                 borderRadius: 3,
                 backgroundImage: 'url("/images/loveChat.jpg")',
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
-                mb: 4
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                mb: 4,
             }}
         >
             {/* Messages area */}
@@ -114,9 +144,18 @@ export default function Chat() {
                         gap={1}
                         justifyContent={msg.side === "start" ? "flex-start" : "flex-end"}
                     >
-                        {msg.side === "start" && <Avatar src={msg.avatar} sx={{ width: 40, height: 40 }} />}
+                        {msg.side === "start" && (
+                            <Avatar src={msg.avatar} sx={{ width: 40, height: 40 }} />
+                        )}
                         <Box>
-                            <Box display="flex" alignItems="center" gap={1} justifyContent={msg.side === "start" ? "flex-start" : "flex-end"}>
+                            <Box
+                                display="flex"
+                                alignItems="center"
+                                gap={1}
+                                justifyContent={
+                                    msg.side === "start" ? "flex-start" : "flex-end"
+                                }
+                            >
                                 <Typography variant="subtitle2">{msg.sender}</Typography>
                                 <Typography variant="caption" color="text.secondary">
                                     {msg.time}
@@ -127,7 +166,8 @@ export default function Chat() {
                                 sx={{
                                     p: 1,
                                     borderRadius: 2,
-                                    bgcolor: msg.side === "start" ? "primary.light" : "secondary.light",
+                                    bgcolor:
+                                        msg.side === "start" ? "primary.light" : "secondary.light",
                                     maxWidth: 250,
                                     mt: 0.5,
                                     ml: msg.side === "start" ? 0 : "auto",
@@ -144,7 +184,9 @@ export default function Chat() {
                                 {msg.status}
                             </Typography>
                         </Box>
-                        {msg.side === "end" && <Avatar src={msg.avatar} sx={{ width: 40, height: 40 }} />}
+                        {msg.side === "end" && (
+                            <Avatar src={msg.avatar} sx={{ width: 40, height: 40 }} />
+                        )}
                     </Box>
                 ))}
             </Box>
@@ -164,6 +206,5 @@ export default function Chat() {
                 </IconButton>
             </Box>
         </Paper>
-
     );
 }
