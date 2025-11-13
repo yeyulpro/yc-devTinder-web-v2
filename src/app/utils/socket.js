@@ -1,5 +1,4 @@
 import { io } from "socket.io-client";
-import { BASE_URL } from "../apis/baseUrl";
 
 export const createSocketConnection = () => {
   const socket = io(
