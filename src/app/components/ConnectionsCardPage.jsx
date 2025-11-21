@@ -34,6 +34,7 @@ export default function ConnectionsCardPage({ user }) {
             height="290"
             image={photoUrl}
             alt="user photo"
+            loading="lazy"  // first comes first served
             sx={{ p: 2, borderRadius: 7 }}
           />
 

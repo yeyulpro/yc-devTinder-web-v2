@@ -30,7 +30,7 @@ import PaymentIcon from '@mui/icons-material/Payment';
 const pages = [
     { name: "Security", linkTo: "/security" },
     { name: "Guidlines", linkTo: "/guidelines" },
-    { name: "Resume", linkTo: "/about" },
+   
 ];
 
 const settings = [

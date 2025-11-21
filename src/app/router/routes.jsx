@@ -1,4 +1,4 @@
-import { createBrowserRouter, useParams } from "react-router-dom";
+import { createBrowserRouter, } from "react-router-dom";
 import RequireAuth from "../components/RequireAuth";
 import App from "../../App";
 import Home from "../components/Home";
@@ -12,13 +12,11 @@ import ProfilePage from "../components/ProfilePage";
 import LoginPage from "../components/LoginPage";
 import RegisterPage from "../components/RegisterPage";
 import Nobody from "../shared/Nobody";
-import AboutYeyul from "../components/AboutYeyul";
 import PaymentChoice from "../components/PaymentChoice";
 import PaymentDetails from "../components/PaymentDetails";
 import Chat from "../components/Chat";
 
-export const router = createBrowserRouter(
-  
+export const router = createBrowserRouter( 
   
   [
   {
@@ -30,7 +28,7 @@ export const router = createBrowserRouter(
       { path: "register", element: <RegisterPage /> },
       { path: "security", element: <SecurityPage /> },
       { path: "guidelines", element: <GuidelinesPage /> },
-      { path: "about", element: <AboutYeyul /> },
+      
       {
         element: <RequireAuth />,
         children: [
