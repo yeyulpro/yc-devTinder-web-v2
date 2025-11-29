@@ -1,3 +1,4 @@
+import React from 'react'
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -49,6 +50,7 @@ export default function RegisterPage() {
 
   return (
     <Paper
+      data-testid='register-page'
       elevation={9}
       sx={{ bgcolor: "#FFF7F7", mt: 0, borderRadius: 3, width: 550, pb: 5 }}
     >

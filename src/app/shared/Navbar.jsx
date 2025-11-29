@@ -24,13 +24,12 @@ import ThumbUpSharpIcon from "@mui/icons-material/ThumbUpSharp";
 import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import EditNoteSharpIcon from "@mui/icons-material/EditNoteSharp";
 import { useProfileQuery } from "../apis/userApi";
-import { useEffect, } from "react";
-import PaymentIcon from '@mui/icons-material/Payment';
+import { useEffect } from "react";
+import PaymentIcon from "@mui/icons-material/Payment";
 
 const pages = [
     { name: "Security", linkTo: "/security" },
     { name: "Guidlines", linkTo: "/guidelines" },
-   
 ];
 
 const settings = [
@@ -62,14 +61,13 @@ const settings = [
         theColor: "#3d405b",
         icon: <EditNoteSharpIcon />,
     },
-      {
+    {
         name: "Payment",
         linkTo: "/pay-choice",
         backColor: "#3d405b",
         theColor: "#ff9e00",
         icon: <PaymentIcon />,
     },
-    
 ];
 
 export default function Navbar() {
@@ -88,11 +86,8 @@ export default function Navbar() {
         }
     }, [profileData, error, dispatch, logout]);
 
-    const loginUser = useSelector((state) => state.account.user);
-    const isLoggedIn = useSelector((state) => state.account.isLoggedIn);
-
-
-
+    const loginUser = useSelector((state) => state.account?.user);
+    const isLoggedIn = useSelector((state) => state.account?.isLoggedIn);
 
     const logoutHandler = async () => {
         try {
@@ -249,8 +244,8 @@ export default function Navbar() {
                         {!isLoggedIn ? (
                             <>
                                 <Button
-                                    component={Link}
-                                    to="/register"
+                                data-testid="navbar-register"
+                                    onClick={()=>navigate('/register')}
                                     sx={{
                                         color: "#FFFF",
                                         fontSize: "1.2rem",
@@ -260,8 +255,8 @@ export default function Navbar() {
                                     Register
                                 </Button>
                                 <Button
-                                    component={Link}
-                                    to="/login"
+                                 data-testid="navbar-login"
+                                    onClick={()=>navigate('/login')}
                                     sx={{
                                         color: "#fafafa",
                                         fontSize: "1.2rem",
@@ -279,6 +274,7 @@ export default function Navbar() {
                                         sx={{ p: 0, fontSize: "1.2rem" }}
                                     >
                                         <Typography
+                                         data-testid="navbar-hello"
                                             sx={{
                                                 color: "#FFFF",
                                                 mr: 2,
@@ -338,10 +334,6 @@ export default function Navbar() {
                                 </Button>
                             </>
                         )}
-
-
-
-
                     </Box>
                 </Toolbar>
             </Container>

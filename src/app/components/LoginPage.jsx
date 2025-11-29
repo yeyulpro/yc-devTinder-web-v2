@@ -1,3 +1,4 @@
+import React from "react";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -20,7 +21,6 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { setUser } from "../slices/accountSlice";
 
-
 export default function LoginPage() {
   const navigate = useNavigate();
   const [login] = useLoginMutation();
@@ -35,7 +35,6 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
   });
   const onSubmit = async (data) => {
-
     try {
       const loginUser = await login(data).unwrap();
       dispatch(setUser(loginUser));
@@ -52,7 +51,6 @@ export default function LoginPage() {
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
 
   return (
     <Paper
@@ -74,13 +72,18 @@ export default function LoginPage() {
         <Typography
           component="h1"
           variant="h5"
-          sx={{ color: "#1E3E62", fontWeight: "bold", }}
+          sx={{ color: "#1E3E62", fontWeight: "bold" }}
         >
           Login to your account
         </Typography>
 
-        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3, paddingX: 4 }}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ mt: 3, paddingX: 4 }}
+        >
           <TextField
+            data-testid="test-email"
             margin="normal"
             required
             fullWidth
@@ -95,8 +98,8 @@ export default function LoginPage() {
             helperText={errors.emailId?.message}
           />
 
-
           <TextField
+            data-testid="test-password"
             fullWidth
             id="password"
             label="Password"
@@ -121,10 +124,11 @@ export default function LoginPage() {
           />
 
           <Button
+          data-testid="test-submit"
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 1, marginY: 2, fontWeight: "bold", bgcolor: '#0B192C' }}
+            sx={{ mt: 1, marginY: 2, fontWeight: "bold", bgcolor: "#0B192C" }}
           >
             Login
           </Button>
@@ -137,9 +141,13 @@ export default function LoginPage() {
             Not a member?{" "}
             <Typography
               component={Link}
-              to='/register'
+              to="/register"
               underline="hover"
-              sx={{ fontWeight: "bold", textDecoration: 'none', color: '#1E3E62' }}
+              sx={{
+                fontWeight: "bold",
+                textDecoration: "none",
+                color: "#1E3E62",
+              }}
             >
               Sign Up
             </Typography>
