@@ -49,7 +49,12 @@ export const matchingApi = createApi({
         url: `request/send/${state}/${id}`,
         method: "POST",
       }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+      async onQueryStarted({id}, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          matchingApi.util.updateQueryData("getAllFeed", undefined, (draft) => {
+            draft.feedList = draft.feedList.filter((user) => user._id !== id);
+          })
+        );
         try {
           await queryFulfilled;
           dispatch(
@@ -60,6 +65,7 @@ export const matchingApi = createApi({
             ])
           );
         } catch (err) {
+          patchResult.undo();
           console.log(err.message);
         }
       },

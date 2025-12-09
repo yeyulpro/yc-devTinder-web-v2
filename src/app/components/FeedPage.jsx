@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 export default function FeedPage() {
   const { data, error, isLoading } = useGetAllFeedQuery();
   const [interestIgnoreRequests] = useInterestIgnoreRequestsMutation();
-
+  
   if (isLoading) {
     return <Typography>Loading...</Typography>;
   }
@@ -16,12 +16,28 @@ export default function FeedPage() {
     return <Typography>Error loading data...</Typography>;
   }
 
-  
   const interestHandler = async (id) => {
-    await interestIgnoreRequests({ state: "interested", id }).unwrap();
+    try {
+      const result = await interestIgnoreRequests({
+        state: "interested",
+        id,
+      }).unwrap();
+      console.log("Request success:", result);
+    } catch (err) {
+      console.error("Request failed:", err);
+    }
   };
   const ignoreHandler = async (id) => {
-    await interestIgnoreRequests({ state: "ignored", id }).unwrap();
+     try {
+      const result = await interestIgnoreRequests({
+        state: "ignored",
+        id,
+      }).unwrap();
+      console.log("Request success-ignored:", result);
+    } catch (err) {
+      console.error("Request failed:", err);
+    }
+    
   };
   return (
     <Box
@@ -48,7 +64,9 @@ export default function FeedPage() {
           interestHandler={() => interestHandler(data.feedList[0]._id)}
           ignoreHandler={() => ignoreHandler(data.feedList[0]._id)}
         />
-      ):(<NoUserPage/>)}
+      ) : (
+        <NoUserPage />
+      )}
     </Box>
   );
 }
