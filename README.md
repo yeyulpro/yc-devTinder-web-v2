@@ -3,7 +3,7 @@
 This repository contains the **client-side** code for **ycTinder**, a real-world dating application.  
 The **server-side** (backend) is hosted separately: [ycTinder Server](https://github.com/yeyulpro/yc-dev-Tinder-v.2.git).  
 
-**Live Demo:** [yctiner.online](https://yctinder.online)  
+**Live Demo:** [yctinder.online](https://yctinder.online)  
 
 **ycTinder Client** is responsible for the user interface, managing state, and providing real-time interactions with the backend. Built with **React**, it delivers a responsive and interactive experience for users.  
 
